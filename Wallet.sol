@@ -13,6 +13,7 @@ contract Wallet {
         bool sent;
     }
     Transfer[] public transfers;
+    mapping(address => mapping(uint256 => bool)) public approvals;
 
     constructor(address[] memory _approvers, uint256 _quorum) public {
         approvers = _approvers;
@@ -29,5 +30,23 @@ contract Wallet {
 
     function createTransfer(uint256 amount, address payable to) external {
         transfers.push(Transfer(transfers.length, amount, to, 0, false));
+    }
+
+    function approveTransfer(uint256 id) external {
+        require(transfers[id].sent == false, "transfer has already sent");
+        require(
+            approvals[msg.sender][id] == false,
+            "cannot approve transfer twice"
+        );
+
+        approvals[msg.sender][id] = true;
+        transfers[id].approvals++;
+
+        if (transfers[id].approvals >= quorum) {
+            transfers[id].sent = true;
+            address payable to = transfers[id].to;
+            uint256 amount = transfers[id].amount;
+            to.transfer(amount);
+        }
     }
 }
