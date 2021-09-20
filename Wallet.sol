@@ -28,11 +28,14 @@ contract Wallet {
         return transfers;
     }
 
-    function createTransfer(uint256 amount, address payable to) external {
+    function createTransfer(uint256 amount, address payable to)
+        external
+        onlyApprover
+    {
         transfers.push(Transfer(transfers.length, amount, to, 0, false));
     }
 
-    function approveTransfer(uint256 id) external {
+    function approveTransfer(uint256 id) external onlyApprover {
         require(transfers[id].sent == false, "transfer has already sent");
         require(
             approvals[msg.sender][id] == false,
@@ -51,4 +54,17 @@ contract Wallet {
     }
 
     receive() external payable {}
+
+    modifier onlyApprover() {
+        bool allowed = false;
+
+        for (uint256 i = 0; i < approvers.length; i++) {
+            if (approvers[i] == msg.sender) {
+                allowed = true;
+            }
+        }
+
+        require(allowed == true, "only approvers allowed");
+        _;
+    }
 }
