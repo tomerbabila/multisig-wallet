@@ -15,7 +15,7 @@ contract Wallet {
     Transfer[] public transfers;
     mapping(address => mapping(uint256 => bool)) public approvals;
 
-    constructor(address[] memory _approvers, uint256 _quorum) public {
+    constructor(address[] memory _approvers, uint256 _quorum) {
         approvers = _approvers;
         quorum = _quorum;
     }
@@ -49,4 +49,6 @@ contract Wallet {
             to.transfer(amount);
         }
     }
+
+    receive() external payable {}
 }
