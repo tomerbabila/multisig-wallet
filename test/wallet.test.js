@@ -11,7 +11,7 @@ contract('Wallet', (accounts) => {
     await web3.eth.sendTransaction({
       from: accounts[0],
       to: wallet.address,
-      value: 100,
+      value: 1000,
     });
   });
 
@@ -43,5 +43,17 @@ contract('Wallet', (accounts) => {
       wallet.createTransfer(100, accounts[3], { from: accounts[4] }),
       'only approvers allowed'
     );
+  });
+
+  it('should increment approvals', async () => {
+    await wallet.createTransfer(100, accounts[3], { from: accounts[0] });
+    await wallet.approveTransfer(0, { from: accounts[0] });
+
+    const transfers = await wallet.getTransfers();
+    const balance = await web3.eth.getBalance(wallet.address);
+
+    assert(transfers[0].approvals === '1');
+    assert(transfers[0].sent === false);
+    assert(balance === '1000');
   });
 });
