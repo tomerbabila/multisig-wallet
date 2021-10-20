@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/tomerbabila/multisig-wallet/issues"
   },
-  "homepage": "https://github.com/tomerbabila/multisig-wallet#readme"
+  "homepage": "https://github.com/tomerbabila/multisig-wallet#readme",
+  "dependencies": {
+    "@openzeppelin/test-helpers": "^0.5.5"
+  }
 }
