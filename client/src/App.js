@@ -59,9 +59,18 @@ function App() {
   return (
     <div>
       <Header />
-      {isLoading ? <Info approvers={approvers} quorum={quorum} /> : <Loader />}
-      <NewTransfer createTransfer={createTransfer} />
-      <TransferList transfers={transfers} approveTransfer={approveTransfer} />
+      {isLoading ? (
+        <div>
+          <Info approvers={approvers} quorum={quorum} />
+          <NewTransfer createTransfer={createTransfer} />
+          <TransferList
+            transfers={transfers}
+            approveTransfer={approveTransfer}
+          />
+        </div>
+      ) : (
+        <Loader />
+      )}
     </div>
   );
 }
