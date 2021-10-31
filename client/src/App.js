@@ -4,6 +4,7 @@ import { getWallet, getWeb3 } from './utils/utils.js';
 import Header from './components/Header';
 import Loader from './components/Loader';
 import Info from './components/Info';
+import NewTransfer from './components/NewTransfer';
 
 function App() {
   const [web3, setWeb3] = useState(undefined);
@@ -32,10 +33,17 @@ function App() {
     init();
   }, []);
 
+  const createTransfer = (transfer) => {
+    wallet.methods
+      .createTransfer(transfer.amount, transfer.to)
+      .send({ from: accounts[0] });
+  };
+
   return (
     <div>
       <Header />
       {isLoading ? <Info approvers={approvers} quorum={quorum} /> : <Loader />}
+      <NewTransfer createTransfer={createTransfer} />
     </div>
   );
 }
