@@ -5,6 +5,7 @@ import Header from './components/Header';
 import Loader from './components/Loader';
 import Info from './components/Info';
 import NewTransfer from './components/NewTransfer';
+import TransferList from './components/TransferList';
 
 function App() {
   const [web3, setWeb3] = useState(undefined);
@@ -13,6 +14,7 @@ function App() {
   const [approvers, setApprovers] = useState([]);
   const [quorum, setQuorum] = useState(undefined);
   const [isLoading, setIsLoading] = useState(false);
+  const [transfers, setTransfers] = useState([]);
 
   useEffect(() => {
     const init = async () => {
@@ -22,12 +24,14 @@ function App() {
       const wallet = await getWallet(web3);
       const approvers = await wallet.methods.getApprovers().call();
       const quorum = await wallet.methods.quorum().call();
+      const transfers = await wallet.methods.getTransfers().call();
 
       setWeb3(web3);
       setAccounts(accounts);
       setWallet(wallet);
       setApprovers(approvers);
       setQuorum(quorum);
+      setTransfers(transfers);
       setIsLoading(true);
     };
     init();
@@ -39,11 +43,16 @@ function App() {
       .send({ from: accounts[0] });
   };
 
+  const approveTransfer = (transferId) => {
+    wallet.methods.approveTransfer(transferId).send({ from: accounts[0] });
+  };
+
   return (
     <div>
       <Header />
       {isLoading ? <Info approvers={approvers} quorum={quorum} /> : <Loader />}
       <NewTransfer createTransfer={createTransfer} />
+      <TransferList transfers={transfers} approveTransfer={approveTransfer} />
     </div>
   );
 }
