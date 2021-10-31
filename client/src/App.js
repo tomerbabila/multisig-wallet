@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import './styles/App.scss';
 import { getWallet, getWeb3 } from './utils/utils.js';
 import Header from './components/Header';
+import Loader from './components/Loader';
 import Info from './components/Info';
 
 function App() {
@@ -9,9 +11,11 @@ function App() {
   const [wallet, setWallet] = useState(undefined);
   const [approvers, setApprovers] = useState([]);
   const [quorum, setQuorum] = useState(undefined);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const init = async () => {
+      setIsLoading(false);
       const web3 = getWeb3();
       const accounts = await web3.eth.getAccounts();
       const wallet = await getWallet(web3);
@@ -23,6 +27,7 @@ function App() {
       setWallet(wallet);
       setApprovers(approvers);
       setQuorum(quorum);
+      setIsLoading(true);
     };
     init();
   }, []);
@@ -30,7 +35,7 @@ function App() {
   return (
     <div>
       <Header />
-      <Info approvers={approvers} quorum={quorum} />
+      {isLoading ? <Info approvers={approvers} quorum={quorum} /> : <Loader />}
     </div>
   );
 }
