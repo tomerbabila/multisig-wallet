@@ -21,12 +21,10 @@ function NewTransfer({ createTransfer }) {
         <input
           id='amount'
           type='text'
-          onClick={(e) => updateTransfer(e, 'amount')}
+          onChange={(e) => updateTransfer(e, 'amount')}
         />
-        <br />
         <label htmlFor='to'>To</label>
-        <input id='to' type='text' onClick={(e) => updateTransfer(e, 'to')} />
-        <br />
+        <input id='to' type='text' onChange={(e) => updateTransfer(e, 'to')} />
         <button>Submit</button>
       </form>
     </div>
