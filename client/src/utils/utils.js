@@ -1,23 +1,23 @@
 import Web3 from 'web3';
 import Wallet from '../contracts/Wallet.json';
+import detectEthereumProvider from '@metamask/detect-provider';
 
 const getWeb3 = async () => {
-  return new Promise((resolve, reject) => {
-    window.addEventListener('load', () => {
-      if (window.ethereum) {
+  return new Promise(async (resolve, reject) => {
+    let provider = await detectEthereumProvider();
+
+    if (provider) {
+      await provider.request({ method: 'eth_requestAccounts' });
+
+      try {
         const web3 = new Web3(window.ethereum);
-        try {
-          window.ethereum.enable();
-          resolve(web3);
-        } catch (error) {
-          reject(error);
-        }
-      } else if (window.web3) {
-        resolve(window.web3);
-      } else {
-        reject('Must install Metamask');
+
+        resolve(web3);
+      } catch (error) {
+        reject(error);
       }
-    });
+    }
+    reject('Install Metamask');
   });
 };
 
