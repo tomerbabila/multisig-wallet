@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/multisig-wallet/static/css/main.65745779.chunk.css",
+    "main.js": "/multisig-wallet/static/js/main.330bb35d.chunk.js",
+    "main.js.map": "/multisig-wallet/static/js/main.330bb35d.chunk.js.map",
+    "runtime-main.js": "/multisig-wallet/static/js/runtime-main.844afddf.js",
+    "runtime-main.js.map": "/multisig-wallet/static/js/runtime-main.844afddf.js.map",
+    "static/js/2.98a42743.chunk.js": "/multisig-wallet/static/js/2.98a42743.chunk.js",
+    "static/js/2.98a42743.chunk.js.map": "/multisig-wallet/static/js/2.98a42743.chunk.js.map",
+    "index.html": "/multisig-wallet/index.html",
+    "static/css/main.65745779.chunk.css.map": "/multisig-wallet/static/css/main.65745779.chunk.css.map",
+    "static/js/2.98a42743.chunk.js.LICENSE.txt": "/multisig-wallet/static/js/2.98a42743.chunk.js.LICENSE.txt",
+    "static/media/puff.be69e7a9.svg": "/multisig-wallet/static/media/puff.be69e7a9.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.844afddf.js",
+    "static/js/2.98a42743.chunk.js",
+    "static/css/main.65745779.chunk.css",
+    "static/js/main.330bb35d.chunk.js"
+  ]
+}
