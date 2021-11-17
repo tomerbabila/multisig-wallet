@@ -48,8 +48,8 @@ module.exports = {
     kovan: {
       provider: () =>
         new provider(secrets.privateKeys, secrets.projectLink, 0, 3),
+      network_id: 42,
     },
-    network_id: 42,
   },
 
   // Set default mocha options here, use special reporters etc.
