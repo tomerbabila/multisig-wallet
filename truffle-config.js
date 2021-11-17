@@ -2,7 +2,9 @@ const path = require('path');
 const provider = require('@truffle/hdwallet-provider');
 const fs = require('fs');
 
-const secrets = JSON.parse(fs.readFileSync('./secrets.json').toString().trim());
+const secrets = JSON.parse(
+  fs.readFileSync('./.secrets.json').toString().trim()
+);
 
 /**
  * Use this file to configure your truffle project. It's seeded with some
@@ -45,12 +47,7 @@ module.exports = {
   networks: {
     kovan: {
       provider: () =>
-        new provider(
-          secrets.privateKeys,
-          'https://kovan.infura.io/v3/a7efeab0e73142d1aaa7e543f69b6721',
-          0,
-          3
-        ),
+        new provider(secrets.privateKeys, secrets.projectLink, 0, 3),
     },
     network_id: 42,
   },
